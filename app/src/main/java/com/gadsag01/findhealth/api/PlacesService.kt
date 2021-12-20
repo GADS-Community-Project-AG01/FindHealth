@@ -14,7 +14,7 @@ class PlacesService {
 }
 
 
-class NearbySearchService (private val geoApiContext: GeoApiContext) {
+class NearbyHospitalsSearchClient (private val geoApiContext: GeoApiContext) {
 
     val location = FindCurrentPlaceRequest.builder(listOf(Place.Field.LAT_LNG)).build()
 

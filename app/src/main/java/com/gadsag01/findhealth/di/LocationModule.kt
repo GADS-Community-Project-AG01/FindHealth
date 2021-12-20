@@ -22,7 +22,7 @@ class LocationModule {
     }
 
     @Provides
-    fun provideNearbySearchService(context: GeoApiContext) : NearbySearchService {
-        return NearbySearchService(context)
+    fun provideNearbySearchService(context: GeoApiContext) : NearbyHospitalsSearchClient {
+        return NearbyHospitalsSearchClient(context)
     }
 }
