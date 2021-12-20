@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gadsag01.findhealth.api.NearbyHospitalsSearchClient
 import com.gadsag01.findhealth.data.HospitalBasic
+import com.gadsag01.findhealth.data.HospitalFull
 import com.google.maps.model.LatLng
 import com.google.maps.model.PlacesSearchResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,9 +19,9 @@ import javax.inject.Inject
 class HospitalViewModel @Inject constructor(
     private val nearbyHospitalsSearchClient: NearbyHospitalsSearchClient) : ViewModel()
 {
-    private var mutableLiveDataSearchResponse = MutableLiveData<List<HospitalBasic>>()
+    private var mutableLiveDataSearchResponse = MutableLiveData<List<HospitalFull>>()
 
-    val liveDataSearchResults : LiveData<List<HospitalBasic>>
+    val liveDataSearchResults : LiveData<List<HospitalFull>>
         get() = mutableLiveDataSearchResponse
 
     fun getHospitals(location : LatLng) {
@@ -29,7 +30,7 @@ class HospitalViewModel @Inject constructor(
         }
     }
 
-    fun PlacesSearchResponse.toHospitals() : List<HospitalBasic> {
+    fun PlacesSearchResponse.toHospitalBasic() : List<HospitalBasic> {
         return this.results.toList().map {
             HospitalBasic(
                 it.name,
@@ -39,4 +40,10 @@ class HospitalViewModel @Inject constructor(
             )
         }
     }
+
+    fun PlacesSearchResponse.toHospitalFullDetails() : List<HospitalFull> {
+        return this.results.toList().map { nearbyHospitalsSearchClient.returnHospitalFullDetails(it.placeId) }
+    }
+
+
 }

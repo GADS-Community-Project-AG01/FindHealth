@@ -1,7 +1,7 @@
 package com.gadsag01.findhealth.di
 
 import android.content.Context
-import com.gadsag01.findhealth.api.NearbySearchService
+import com.gadsag01.findhealth.api.NearbyHospitalsSearchClient
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.maps.GeoApiContext
