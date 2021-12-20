@@ -17,25 +17,21 @@ import javax.inject.Inject
 
 @SuppressLint("MissingPermission")
 @HiltViewModel
-class LocationViewModel @Inject constructor (private val locationProviderClient: FusedLocationProviderClient) : ViewModel() {
+class LocationViewModel @Inject constructor (
+    private val locationProviderClient: FusedLocationProviderClient) : ViewModel() {
 
     var mutableLiveDataLocation = MutableLiveData<Location>()
     val livedataLocation : LiveData<Location>
         get() = mutableLiveDataLocation
 
-    init {
+    fun getLocation () {
         viewModelScope.launch {
-//            location = locationProviderClient.lastLocation.await()
             val cancellationTokenSource = CancellationTokenSource()
             val currentLocationTask = locationProviderClient.getCurrentLocation(
                 PRIORITY_HIGH_ACCURACY, cancellationTokenSource.token).await()
             mutableLiveDataLocation.postValue(currentLocationTask)
         }
-
     }
-
-//    fun currentLatLng() = livedataLocation.toLatLng()
-
 }
 
 fun Location.toLatLng() : LatLng {
