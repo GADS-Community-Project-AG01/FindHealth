@@ -1,5 +1,6 @@
 package com.gadsag01.findhealth.api
 
+import android.util.Log
 import com.gadsag01.findhealth.model.HospitalFull
 import com.google.maps.GeoApiContext
 import com.google.maps.NearbySearchRequest
@@ -28,6 +29,7 @@ class NearbyHospitalsSearchClient (private val geoApiContext: GeoApiContext) {
         } catch (e: ApiException) {
 // todo
         } finally {
+            Log.d("check value", request.toString())
             return request
         }
     }

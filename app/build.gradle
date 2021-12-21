@@ -8,6 +8,20 @@ plugins {
 }
 
 android {
+    signingConfigs {
+//        debug {
+//            storeFile file('/home/admin/AndroidStudioProjects/FindHealth/findhealthsignedkey.jks')
+//            storePassword 'daddyy'
+//            keyAlias 'key0'
+//            keyPassword 'daddyy'
+//        }
+        release {
+            storeFile file('/home/admin/AndroidStudioProjects/FindHealth/findhealthsignedkey.jks')
+            storePassword 'daddyy'
+            keyAlias 'key0'
+            keyPassword 'daddyy'
+        }
+    }
     compileSdk 31
 
     defaultConfig {
@@ -25,12 +39,16 @@ android {
         }
 
         resValue "string", "MAPS_API_KEY", properties.getProperty("MAPS_API_KEY", "")
+        targetSdkVersion 31
+        minSdkVersion 21
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
@@ -43,6 +61,8 @@ android {
     buildFeatures {
         viewBinding true
     }
+    compileSdkVersion 31
+    buildToolsVersion '30.0.2'
 }
 
 dependencies {
@@ -66,7 +86,7 @@ dependencies {
     implementation 'pub.devrel:easypermissions:3.0.0'
 //    ktx for converting tasks to coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
 
     testImplementation 'junit:junit:4.+'

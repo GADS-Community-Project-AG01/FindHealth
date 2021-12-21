@@ -52,6 +52,7 @@ class FirstFragment : Fragment() {
         binding.hospitalBasicRecyclerView.layoutManager = LinearLayoutManager(context)
 
         locationViewModel.livedataLocation.observe(viewLifecycleOwner) {
+            Log.d("check value", it.toString())
             hospitalViewModel.getAllHospitalsBasicDetails(it.toLatLng())
         }
         hospitalViewModel.liveDataAllHospitalBasicDetails.observe(viewLifecycleOwner) {

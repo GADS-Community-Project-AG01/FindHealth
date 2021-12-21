@@ -1,5 +1,6 @@
 package com.gadsag01.findhealth.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -38,6 +39,7 @@ class HospitalViewModel @Inject constructor(
     }
 
     fun getAllHospitalsBasicDetails(location : LatLng) {
+        Log.d("check value", location.toString())
         viewModelScope.launch(Dispatchers.IO) {
             mutableLiveDataAllHospitalBasicDetails.postValue(
                 nearbyHospitalsSearchClient.run(location).toHospitalBasicDetails())
