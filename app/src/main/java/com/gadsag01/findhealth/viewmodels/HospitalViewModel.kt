@@ -34,7 +34,9 @@ class HospitalViewModel @Inject constructor(
     fun getAllHospitalsFullDetails(location : LatLng) {
         viewModelScope.launch(Dispatchers.IO) {
             mutableLiveDataAllHospitalFullDetails.postValue(
-                nearbyHospitalsSearchClient.run(location).toHospitalFullDetails())
+                nearbyHospitalsSearchClient.run(location)?.toHospitalFullDetails()
+                    ?: emptyList()
+            )
         }
     }
 
@@ -42,7 +44,9 @@ class HospitalViewModel @Inject constructor(
         Log.d("check value", location.toString())
         viewModelScope.launch(Dispatchers.IO) {
             mutableLiveDataAllHospitalBasicDetails.postValue(
-                nearbyHospitalsSearchClient.run(location).toHospitalBasicDetails())
+                nearbyHospitalsSearchClient.run(location)?.toHospitalBasicDetails()
+                    ?: emptyList()
+            )
         }
     }
 

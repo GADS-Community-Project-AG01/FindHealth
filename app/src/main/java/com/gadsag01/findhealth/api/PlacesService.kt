@@ -18,19 +18,18 @@ class NearbyHospitalsSearchClient (private val geoApiContext: GeoApiContext) {
 
     var request : PlacesSearchResponse = PlacesSearchResponse()
 
-    fun run(location: LatLng, distance: Int = 5000) : PlacesSearchResponse {
-        try {
+    fun run(location: LatLng, distance: Int = 5000) : PlacesSearchResponse? {
+        return try {
             request = NearbySearchRequest(geoApiContext).apply {
                 location(location)
                 radius(distance)
                 rankby(RankBy.PROMINENCE)
                 type(PlaceType.HOSPITAL)
             } .await()
+            request
         } catch (e: ApiException) {
-// todo
-        } finally {
-            Log.d("check value", request.toString())
-            return request
+            Log.e("PlacesService", e.localizedMessage ?: "An unexpected error occurred")
+            null
         }
     }
 
