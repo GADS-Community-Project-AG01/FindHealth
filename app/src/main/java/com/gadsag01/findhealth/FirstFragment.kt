@@ -1,12 +1,21 @@
 package com.gadsag01.findhealth
 
+import android.location.Location
 import android.os.Bundle
+import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.gadsag01.findhealth.adapters.HospitalAdapter
 import com.gadsag01.findhealth.databinding.FragmentFirstBinding
+import com.gadsag01.findhealth.viewmodels.HospitalViewModel
+import com.gadsag01.findhealth.viewmodels.LocationViewModel
+import com.gadsag01.findhealth.viewmodels.toLatLng
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -15,11 +24,17 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FirstFragment : Fragment() {
 
+    private val hospitalBasicListAdapter = HospitalAdapter()
+    private val locationViewModel : LocationViewModel by activityViewModels()
+    private val hospitalViewModel: HospitalViewModel by viewModels()
+    private val editableFactory = Editable.Factory()
     private var _binding: FragmentFirstBinding? = null
+    private var permissionStatus = false
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,9 +48,14 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.hospitalBasicRecyclerView.adapter = hospitalBasicListAdapter
+        binding.hospitalBasicRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        locationViewModel.livedataLocation.observe(viewLifecycleOwner) {
+            hospitalViewModel.getAllHospitalsBasicDetails(it.toLatLng())
+        }
+        hospitalViewModel.liveDataAllHospitalBasicDetails.observe(viewLifecycleOwner) {
+            hospitalBasicListAdapter.submitList(it)
         }
     }
 
@@ -43,4 +63,9 @@ class FirstFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun locationObserver(location: Location) {
+        Log.d("check value", location.toLatLng().toString())
+    }
+
 }

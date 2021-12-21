@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gadsag01.findhealth.api.NearbyHospitalsSearchClient
-import com.gadsag01.findhealth.data.HospitalBasic
-import com.gadsag01.findhealth.data.HospitalFull
+import com.gadsag01.findhealth.model.HospitalBasic
+import com.gadsag01.findhealth.model.HospitalFull
 import com.google.maps.model.LatLng
 import com.google.maps.model.PlacesSearchResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -47,9 +47,9 @@ class HospitalViewModel @Inject constructor(
     fun PlacesSearchResponse.toHospitalBasicDetails() : List<HospitalBasic> {
         return this.results.toList().map {
             HospitalBasic(
-                it.name,
-                it.formattedAddress,
                 it.placeId,
+                it.name,
+                it.formattedAddress ?: "address not found",
                 it.rating
             )
         }

@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.gadsag01.findhealth.data.HospitalBasic
 import com.gadsag01.findhealth.databinding.ItemHospitalBinding
+import com.gadsag01.findhealth.model.HospitalBasic
 import javax.inject.Inject
 
 class HospitalAdapter @Inject constructor() :

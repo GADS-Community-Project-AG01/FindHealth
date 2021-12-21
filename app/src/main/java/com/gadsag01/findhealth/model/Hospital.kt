@@ -1,10 +1,11 @@
-package com.gadsag01.findhealth.data
+package com.gadsag01.findhealth.model
 
 import com.google.maps.model.Geometry
 import com.google.maps.model.OpeningHours
 import java.net.URL
 
-data class HospitalBasic(val placeId: String,
+data class HospitalBasic(
+    val placeId: String,
     val name: String,
     val formattedAddress: String?,
     val rating: Float?,

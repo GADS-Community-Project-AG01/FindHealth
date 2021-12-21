@@ -1,6 +1,6 @@
 package com.gadsag01.findhealth.api
 
-import com.gadsag01.findhealth.data.HospitalFull
+import com.gadsag01.findhealth.model.HospitalFull
 import com.google.maps.GeoApiContext
 import com.google.maps.NearbySearchRequest
 import com.google.maps.PlacesApi
