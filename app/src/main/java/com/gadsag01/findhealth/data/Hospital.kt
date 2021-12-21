@@ -5,9 +5,9 @@ import com.google.maps.model.OpeningHours
 import java.net.URL
 
 data class HospitalBasic(val placeId: String,
-                         val name: String,
-                         val formattedAddress: String?,
-                         val rating: Float?,
+    val name: String,
+    val formattedAddress: String?,
+    val rating: Float?,
 )
 
 data class HospitalFull(
@@ -21,4 +21,4 @@ data class HospitalFull(
     val userRatingsTotal: Int,
     val googleUrl: URL,
     val website: URL?
-)
+    )
