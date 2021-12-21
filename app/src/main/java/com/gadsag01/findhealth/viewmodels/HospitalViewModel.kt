@@ -19,18 +19,32 @@ import javax.inject.Inject
 class HospitalViewModel @Inject constructor(
     private val nearbyHospitalsSearchClient: NearbyHospitalsSearchClient) : ViewModel()
 {
-    private var mutableLiveDataSearchResponse = MutableLiveData<List<HospitalFull>>()
 
-    val liveDataSearchResults : LiveData<List<HospitalFull>>
-        get() = mutableLiveDataSearchResponse
+    val liveDataAllHospitalBasicDetails : LiveData<List<HospitalBasic>>
+        get() = mutableLiveDataAllHospitalBasicDetails
 
-    fun getHospitals(location : LatLng) {
+    private var mutableLiveDataAllHospitalBasicDetails = MutableLiveData<List<HospitalBasic>>()
+
+    val liveDataALlHospitalFullDetails : LiveData<List<HospitalFull>>
+        get() = mutableLiveDataAllHospitalFullDetails
+
+    private var mutableLiveDataAllHospitalFullDetails = MutableLiveData<List<HospitalFull>>()
+
+    fun getAllHospitalsFullDetails(location : LatLng) {
         viewModelScope.launch(Dispatchers.IO) {
-            mutableLiveDataSearchResponse.postValue(nearbyHospitalsSearchClient.run(location).toHospitalFullDetails())
+            mutableLiveDataAllHospitalFullDetails.postValue(
+                nearbyHospitalsSearchClient.run(location).toHospitalFullDetails())
         }
     }
 
-    fun PlacesSearchResponse.toHospitalBasic() : List<HospitalBasic> {
+    fun getAllHospitalsBasicDetails(location : LatLng) {
+        viewModelScope.launch(Dispatchers.IO) {
+            mutableLiveDataAllHospitalBasicDetails.postValue(
+                nearbyHospitalsSearchClient.run(location).toHospitalBasicDetails())
+        }
+    }
+
+    fun PlacesSearchResponse.toHospitalBasicDetails() : List<HospitalBasic> {
         return this.results.toList().map {
             HospitalBasic(
                 it.name,
