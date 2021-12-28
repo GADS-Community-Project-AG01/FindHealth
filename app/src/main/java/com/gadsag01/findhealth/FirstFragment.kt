@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FirstFragment : Fragment() {
 
-    private val hospitalBasicListAdapter = HospitalAdapter()
+    private val hospitalAdapter = HospitalAdapter()
     private val locationViewModel : LocationViewModel by activityViewModels()
     private val hospitalViewModel: HospitalViewModel by viewModels()
     private val editableFactory = Editable.Factory()
@@ -48,15 +48,15 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.hospitalBasicRecyclerView.adapter = hospitalBasicListAdapter
+        binding.hospitalBasicRecyclerView.adapter = hospitalAdapter
         binding.hospitalBasicRecyclerView.layoutManager = LinearLayoutManager(context)
 
         locationViewModel.livedataLocation.observe(viewLifecycleOwner) {
             Log.d("check value", it.toString())
-            hospitalViewModel.getAllHospitalsBasicDetails(it.toLatLng())
+            hospitalViewModel.getAllHospitalsNearby(it.toLatLng())
         }
-        hospitalViewModel.liveDataAllHospitalBasicDetails.observe(viewLifecycleOwner) {
-            hospitalBasicListAdapter.submitList(it)
+        hospitalViewModel.liveDataAllHospitalsNearby.observe(viewLifecycleOwner) {
+            hospitalAdapter.submitList(it)
         }
     }
 

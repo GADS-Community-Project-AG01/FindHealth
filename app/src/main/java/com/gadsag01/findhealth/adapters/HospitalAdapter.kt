@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gadsag01.findhealth.databinding.ItemHospitalBinding
-import com.gadsag01.findhealth.model.HospitalBasic
+import com.gadsag01.findhealth.model.Hospital
 import javax.inject.Inject
 
 class HospitalAdapter @Inject constructor() :
-    ListAdapter<HospitalBasic, HospitalAdapter.HospitalViewHolder>(Differ) {
+    ListAdapter<Hospital, HospitalAdapter.HospitalViewHolder>(Differ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HospitalViewHolder {
         val binding = ItemHospitalBinding.inflate(
@@ -30,7 +30,7 @@ class HospitalAdapter @Inject constructor() :
         private val binding: ItemHospitalBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(hospital: HospitalBasic) {
+        fun bind(hospital: Hospital) {
             with(binding) {
                 hospitalName.text = hospital.name
                 hospitalRating.rating = hospital.rating ?: 1f
@@ -41,12 +41,12 @@ class HospitalAdapter @Inject constructor() :
         }
     }
 
-    companion object Differ : DiffUtil.ItemCallback<HospitalBasic>() {
-        override fun areItemsTheSame(oldItem: HospitalBasic, newItem: HospitalBasic): Boolean {
+    companion object Differ : DiffUtil.ItemCallback<Hospital>() {
+        override fun areItemsTheSame(oldItem: Hospital, newItem: Hospital): Boolean {
             return oldItem.placeId == newItem.placeId
         }
 
-        override fun areContentsTheSame(oldItem: HospitalBasic, newItem: HospitalBasic): Boolean {
+        override fun areContentsTheSame(oldItem: Hospital, newItem: Hospital): Boolean {
             return oldItem == newItem
         }
     }
