@@ -8,11 +8,11 @@ import com.google.maps.model.PlacesSearchResponse
 class HospitalRepository(val client: NearbyHospitalsSearchClient) {
 
     fun getAllHospitalsNearby(location: LatLng) : List<Hospital>? {
-        return client.run(location)?.toHospitalFullDetails()
+        return client.run(location)?.toHospital(client)
     }
 
-    private fun PlacesSearchResponse.toHospitalFullDetails() : List<Hospital> {
-        return this.results.toList().map { client.requestHospitalsNearby(it.placeId) }
-    }
+}
 
+fun PlacesSearchResponse.toHospital(client: NearbyHospitalsSearchClient) : List<Hospital> {
+    return this.results.toList().map { client.requestHospitalsNearby(it.placeId) }
 }

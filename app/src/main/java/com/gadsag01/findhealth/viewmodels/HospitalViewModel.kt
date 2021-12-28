@@ -4,12 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.gadsag01.findhealth.api.NearbyHospitalsSearchClient
+import com.gadsag01.findhealth.data.HospitalPagingSource
 import com.gadsag01.findhealth.data.HospitalRepository
 import com.gadsag01.findhealth.model.Hospital
 import com.google.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,6 +30,14 @@ class HospitalViewModel @Inject constructor(
         get() = mutableLiveDataAllHospitalsNearby
 
     private var mutableLiveDataAllHospitalsNearby = MutableLiveData<List<Hospital>>()
+
+    fun syncHospitalsNearbyFlow(location : LatLng): Flow<PagingData<Hospital>> {
+        return Pager(
+            PagingConfig(20)
+        ) {
+            HospitalPagingSource(nearbyHospitalsSearchClient, location)
+        }.flow.cachedIn(viewModelScope)
+    }
 
     fun getAllHospitalsNearby(location : LatLng) {
         viewModelScope.launch(Dispatchers.IO) {

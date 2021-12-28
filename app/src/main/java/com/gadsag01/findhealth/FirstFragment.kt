@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gadsag01.findhealth.adapters.HospitalAdapter
 import com.gadsag01.findhealth.databinding.FragmentFirstBinding
@@ -17,6 +18,8 @@ import com.gadsag01.findhealth.viewmodels.HospitalViewModel
 import com.gadsag01.findhealth.viewmodels.LocationViewModel
 import com.gadsag01.findhealth.viewmodels.toLatLng
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -51,13 +54,18 @@ class FirstFragment : Fragment() {
         binding.hospitalBasicRecyclerView.adapter = hospitalAdapter
         binding.hospitalBasicRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        locationViewModel.livedataLocation.observe(viewLifecycleOwner) {
-            Log.d("check value", it.toString())
-            hospitalViewModel.getAllHospitalsNearby(it.toLatLng())
+        locationViewModel.livedataLocation.observe(viewLifecycleOwner) { location ->
+            Log.d("check value", location.toString())
+//            hospitalViewModel.getAllHospitalsNearby(it.toLatLng())
+            viewLifecycleOwner.lifecycleScope.launch {
+                hospitalViewModel.syncHospitalsNearbyFlow(location.toLatLng()).collectLatest {
+                    hospitalAdapter.submitData(it)
+                }
+            }
         }
-        hospitalViewModel.liveDataAllHospitalsNearby.observe(viewLifecycleOwner) {
-            hospitalAdapter.submitList(it)
-        }
+//        hospitalViewModel.liveDataAllHospitalsNearby.observe(viewLifecycleOwner) {
+//            hospitalAdapter.submitList(it)
+//        }
     }
 
     override fun onDestroyView() {

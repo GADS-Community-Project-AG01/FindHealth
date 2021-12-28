@@ -31,20 +31,28 @@ class NearbyHospitalsSearchClient (private val geoApiContext: GeoApiContext) {
 
         //todo if coil can load bytearray data, create an extension function on ImageView that loads the images
     }
+    fun pagedRequest(location: LatLng, nextPageToken: String? = "Start") : PlacesSearchResponse {
+        return if (nextPageToken == "Start") {
+            run(location)
+        } else {
+            NearbySearchRequest(geoApiContext).pageToken(nextPageToken).await()
+        }
+    }
 
-    fun run(location: LatLng, distance: Int = 5000) : PlacesSearchResponse? {
-        return try {
+    fun run(location: LatLng, distance: Int = 5000) : PlacesSearchResponse {
+        try {
             request = NearbySearchRequest(geoApiContext).apply {
                 location(location)
                 radius(distance)
                 rankby(RankBy.PROMINENCE)
                 type(PlaceType.HOSPITAL)
             } .await()
-            request
         } catch (e: ApiException) {
             Log.e("PlacesService", e.localizedMessage ?: "An unexpected error occurred")
-            null
         }
+
+        return request
+
     }
 
     fun requestHospitalsNearby(id: String) : Hospital {
