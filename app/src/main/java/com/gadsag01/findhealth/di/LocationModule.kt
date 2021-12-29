@@ -1,6 +1,7 @@
 package com.gadsag01.findhealth.di
 
 import android.content.Context
+import com.gadsag01.findhealth.adapters.HospitalAdapter
 import com.gadsag01.findhealth.api.NearbyHospitalsSearchClient
 import com.gadsag01.findhealth.data.HospitalRepository
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -9,11 +10,11 @@ import com.google.maps.GeoApiContext
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 
 
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 @Module
 class LocationModule {
 
@@ -31,4 +32,11 @@ class LocationModule {
     fun provideHospitalRepository(client: NearbyHospitalsSearchClient) : HospitalRepository {
         return HospitalRepository(client)
     }
+
+    @Provides
+    fun provideHospitalAdapter(client: NearbyHospitalsSearchClient) : HospitalAdapter {
+        return HospitalAdapter(client)
+    }
+
+
 }

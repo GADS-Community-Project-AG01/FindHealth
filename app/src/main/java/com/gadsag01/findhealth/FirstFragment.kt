@@ -20,6 +20,7 @@ import com.gadsag01.findhealth.viewmodels.toLatLng
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -27,7 +28,9 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class FirstFragment : Fragment() {
 
-    private val hospitalAdapter = HospitalAdapter()
+//    @Inject lateinit var client: NearbyHospitalsSearchClient
+
+    @Inject lateinit var hospitalAdapter : HospitalAdapter
     private val locationViewModel : LocationViewModel by activityViewModels()
     private val hospitalViewModel: HospitalViewModel by viewModels()
     private val editableFactory = Editable.Factory()

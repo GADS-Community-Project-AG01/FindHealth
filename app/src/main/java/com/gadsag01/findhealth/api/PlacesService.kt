@@ -23,12 +23,14 @@ class NearbyHospitalsSearchClient (private val geoApiContext: GeoApiContext) {
 
     var request : PlacesSearchResponse = PlacesSearchResponse()
 
-    fun getPhoto(photoReference : String) {
+    fun getPhoto(photoReference : String) : ByteArray {
 
-        val photoRequest : ImageResult? = PhotoRequest(geoApiContext).apply {
+        val photoRequest : ImageResult = PhotoRequest(geoApiContext).apply {
             photoReference(photoReference)
+            maxHeight(80)
         } .await()
 
+        return photoRequest.imageData
         //todo if coil can load bytearray data, create an extension function on ImageView that loads the images
     }
     fun pagedRequest(location: LatLng, nextPageToken: String? = "Start") : PlacesSearchResponse {

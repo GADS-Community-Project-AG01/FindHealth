@@ -5,11 +5,16 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.gadsag01.findhealth.api.NearbyHospitalsSearchClient
 import com.gadsag01.findhealth.databinding.ItemHospitalBinding
 import com.gadsag01.findhealth.model.Hospital
+import com.gadsag01.findhealth.utils.load
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class HospitalAdapter @Inject constructor() :
+class HospitalAdapter @Inject constructor(private val client: NearbyHospitalsSearchClient) :
     PagingDataAdapter<Hospital, HospitalAdapter.HospitalViewHolder>(Differ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HospitalViewHolder {
@@ -37,6 +42,11 @@ class HospitalAdapter @Inject constructor() :
                 hospitalRating.rating = hospital.rating ?: 1f
                 hospital.formattedAddress?.let {
                     hospitalAddress.text = it
+                }
+                CoroutineScope(Dispatchers.IO).launch {
+                    hospital.photoReferences?.let {
+                        hospitalImage.load(client.getPhoto(it.first()))
+                    }
                 }
             }
         }
