@@ -25,6 +25,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        installSplashScreen()
+
+
+
+        val preferences = getSharedPreferences("SETTINGS", MODE_PRIVATE)
+        when(preferences.getBoolean("should_onboard", true)) {
+            true -> {
+//                preferences.edit().putBoolean("should_onboard", false).apply()
+
+                startActivity(Intent(this, OnboardingScreen::class.java))
+
+            }
+        }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
