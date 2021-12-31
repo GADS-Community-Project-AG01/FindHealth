@@ -37,3 +37,11 @@ class LocationViewModel @Inject constructor (
 fun Location.toLatLng() : LatLng {
     return LatLng(this.latitude, this.longitude )
 }
+
+fun Location.toLatLng2() : com.google.android.gms.maps.model.LatLng {
+    return com.google.android.gms.maps.model.LatLng(this.latitude, this.longitude )
+}
+
+fun LatLng.latLngAdapter() : com.google.android.gms.maps.model.LatLng {
+    return com.google.android.gms.maps.model.LatLng(this.lat, this.lng )
+}

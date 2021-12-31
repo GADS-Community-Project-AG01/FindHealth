@@ -2,13 +2,16 @@ package com.gadsag01.findhealth.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.gadsag01.findhealth.R
 import com.gadsag01.findhealth.api.NearbyHospitalsSearchClient
-import com.gadsag01.findhealth.databinding.ItemHospitalBinding
+import com.gadsag01.findhealth.databinding.HospitalMainBinding
 import com.gadsag01.findhealth.model.Hospital
 import com.gadsag01.findhealth.utils.load
+import com.gadsag01.findhealth.viewmodels.HospitalViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,8 +20,9 @@ import javax.inject.Inject
 class HospitalAdapter @Inject constructor(private val client: NearbyHospitalsSearchClient) :
     PagingDataAdapter<Hospital, HospitalAdapter.HospitalViewHolder>(Differ) {
 
+    private var VM: HospitalViewModel? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HospitalViewHolder {
-        val binding = ItemHospitalBinding.inflate(
+        val binding = HospitalMainBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -33,21 +37,30 @@ class HospitalAdapter @Inject constructor(private val client: NearbyHospitalsSea
     }
 
     inner class HospitalViewHolder(
-        private val binding: ItemHospitalBinding
+        private val binding: HospitalMainBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(hospital: Hospital) {
             with(binding) {
-                hospitalName.text = hospital.name
-                hospitalRating.rating = hospital.rating ?: 1f
-                hospital.formattedAddress?.let {
-                    hospitalAddress.text = it
+                this.root.setOnClickListener {
+                    VM?.setSelectedHospital(hospital)
+                    it.findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
                 }
+                cardViewHospitalName.text = hospital.name
+                cardViewRating.rating = hospital.rating ?: 1f
+                hospital.formattedAddress?.let {
+                    cardViewAddress.text = it
+                }
+                cardViewContact.text = hospital.phoneNumber
+                cardViewOpeningHours.text = "Open 24hours\nSunday - Saturday"
+                hospital.website?.let { cardViewUrl.text = it.toString() }
+                cardViewDistance.text = "17km away"
                 CoroutineScope(Dispatchers.IO).launch {
                     hospital.photoReferences?.let {
-                        hospitalImage.load(client.getPhoto(it.first()))
+                        cardViewHospitalImage.load(client.getPhoto(it.first()))
                     }
                 }
+
             }
         }
     }
@@ -61,6 +74,8 @@ class HospitalAdapter @Inject constructor(private val client: NearbyHospitalsSea
             return oldItem == newItem
         }
     }
+
+    fun setVM(viewModel: HospitalViewModel) { VM = viewModel }
 }
 
 //class HospitalAdapter @Inject constructor() :

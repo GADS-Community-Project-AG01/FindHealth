@@ -14,9 +14,7 @@ import com.gadsag01.findhealth.data.HospitalRepository
 import com.gadsag01.findhealth.model.Hospital
 import com.google.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -31,6 +29,11 @@ class HospitalViewModel @Inject constructor(
 
     private var mutableLiveDataAllHospitalsNearby = MutableLiveData<List<Hospital>>()
 
+    private var  selectedHospitalMutableLiveData = MutableLiveData<Hospital>()
+
+    val selectedHospitalLiveData: LiveData<Hospital>
+        get() = selectedHospitalMutableLiveData
+
     fun syncHospitalsNearbyFlow(location : LatLng): Flow<PagingData<Hospital>> {
         return Pager(
             PagingConfig(20)
@@ -39,13 +42,8 @@ class HospitalViewModel @Inject constructor(
         }.flow.cachedIn(viewModelScope)
     }
 
-    fun getAllHospitalsNearby(location : LatLng) {
-        viewModelScope.launch(Dispatchers.IO) {
-            mutableLiveDataAllHospitalsNearby.postValue(
-                hospitalRepository.getAllHospitalsNearby(location)
-                    ?: emptyList()
-            )
-        }
+    fun setSelectedHospital(hospital: Hospital) {
+        selectedHospitalMutableLiveData.value = hospital
     }
 
 //    fun PlacesSearchResponse.toHospitalFullDetails() : List<HospitalFull> {

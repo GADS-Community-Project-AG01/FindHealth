@@ -1,6 +1,7 @@
 package com.gadsag01.findhealth
 
 import android.Manifest
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -15,7 +16,7 @@ import pub.devrel.easypermissions.EasyPermissions
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
+//    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private val locationViewModel : LocationViewModel by viewModels()
 
@@ -93,4 +94,6 @@ class MainActivity : AppCompatActivity() {
                 234, *permissions)
         }
     }
+
 }
+
