@@ -3,65 +3,139 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    app:cardCornerRadius="4dp"
-    app:contentPadding="8dp">
+    android:layout_height="match_parent"
+    android:layout_marginEnd="32dp"
+    app:cardCornerRadius="30dp"
+    app:contentPadding="24dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingVertical="6dp">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.3" />
+
+        <ImageView
+            android:id="@+id/hospital_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@null"
+            app:layout_constraintBottom_toTopOf="@id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/undraw_building_re_xfcm_1" />
+
+        <RatingBar
+            android:id="@+id/hospital_rating_bar"
+            style="@style/Widget.AppCompat.RatingBar.Indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="4dp"
+            android:numStars="5"
+            android:stepSize=".5"
+            tools:rating="4.0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintTop_toBottomOf="@id/hospital_image"
+            app:layout_constraintEnd_toStartOf="@id/hospital_rate_count"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/hospital_rate_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="4.0"
+            app:layout_constraintStart_toEndOf="@id/hospital_rating_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/hospital_rating_bar"
+            app:layout_constraintBottom_toBottomOf="@id/hospital_rating_bar" />
 
         <TextView
             android:id="@+id/hospital_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
             android:ellipsize="end"
             android:maxLines="2"
+            android:gravity="center"
+            android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            app:layout_constraintBottom_toTopOf="@id/hospital_rating"
-            app:layout_constraintEnd_toStartOf="@id/hospital_image"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/hospital_image"
-            tools:text="Hospital Name" />
-
-        <RatingBar
-            android:id="@+id/hospital_rating"
-            style="@style/Widget.AppCompat.RatingBar.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:numStars="5"
-            android:stepSize=".5"
-            app:layout_constraintBottom_toBottomOf="@id/hospital_image"
-            app:layout_constraintEnd_toStartOf="@id/hospital_image"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/hospital_name" />
-
-        <ImageView
-            android:id="@+id/hospital_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:contentDescription="@null"
+            app:layout_constraintTop_toBottomOf="@id/hospital_rating_bar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Angel and Eagle Hospital" />
 
         <TextView
             android:id="@+id/hospital_address"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:drawablePadding="4dp"
+            android:layout_marginTop="24dp"
+            android:drawablePadding="14dp"
             android:ellipsize="end"
             android:maxLines="3"
-            app:drawableStartCompat="@drawable/ic_location"
-            app:layout_constraintTop_toBottomOf="@id/hospital_image"
-            tools:text="Hospital Address" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:drawableStartCompat="@drawable/ic_baseline_location_on_24"
+            app:layout_constraintTop_toBottomOf="@id/hospital_name"
+            tools:text="9B Sikiru Jimoh Road, GRA, beside Wenby's Suites, Ibara, Abeokuta" />
 
+        <TextView
+            android:id="@+id/hospital_open_hours"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:drawablePadding="14dp"
+            app:layout_constraintTop_toBottomOf="@id/hospital_address"
+            app:layout_constraintStart_toStartOf="@id/hospital_address"
+            app:layout_constraintEnd_toEndOf="@id/hospital_address"
+            app:drawableStartCompat="@drawable/ic_baseline_access_time_24"
+            tools:text="Open 24hours\nSunday - Saturday" />
+
+        <TextView
+            android:id="@+id/hospital_website"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:drawablePadding="14dp"
+            app:layout_constraintTop_toBottomOf="@id/hospital_open_hours"
+            app:layout_constraintStart_toStartOf="@id/hospital_open_hours"
+            app:layout_constraintEnd_toEndOf="@id/hospital_open_hours"
+            app:drawableStartCompat="@drawable/ic_baseline_open_in_browser_24"
+            tools:text="aespecialisthospital.com" />
+
+        <TextView
+            android:id="@+id/hospital_phone_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:drawablePadding="14dp"
+            app:layout_constraintTop_toBottomOf="@id/hospital_website"
+            app:layout_constraintStart_toStartOf="@id/hospital_website"
+            app:layout_constraintEnd_toEndOf="@id/hospital_website"
+            app:drawableStartCompat="@drawable/ic_baseline_phone_iphone_24"
+            tools:text="+234 704 302 1593" />
+
+        <TextView
+            android:id="@+id/hospital_distance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:drawablePadding="14dp"
+            app:layout_constraintTop_toBottomOf="@id/hospital_phone_number"
+            app:layout_constraintStart_toStartOf="@id/hospital_phone_number"
+            app:layout_constraintEnd_toEndOf="@id/hospital_phone_number"
+            app:drawableStartCompat="@drawable/ic_baseline_directions_24"
+            tools:text="17km away" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

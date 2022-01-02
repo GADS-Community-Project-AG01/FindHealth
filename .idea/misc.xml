@@ -3,12 +3,42 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Ahmed/.gradle/caches/transforms-3/d9186b1160586c645ef033f9cb300533/transformed/appcompat-1.3.1/res/drawable/abc_ratingbar_indicator_material.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/graygradient_background.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/green_gradient_background.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/ic_baseline_directions_24.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/ic_baseline_directions_60.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/ic_baseline_open_in_browser_24.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/ic_baseline_phone_iphone_24.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/ic_baseline_view_list_24.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/ic_launcher_ico.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/ic_location.xml" value="0.2203125" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/ic_outline_place_24.xml" value="0.2203125" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/ic_refresh.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/light_green_gradient_background.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/undraw_best_place_r685.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/undraw_building_re_xfcm.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/undraw_building_re_xfcm_1.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/undraw_coming_home__52_ir__1_.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/undraw_community_re_cyrm_1.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/undraw_doctors_hwty.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/undraw_duplicate_re_d39g.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/undraw_medical_care_movn.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/undraw_medicine_b_1_ol_1.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/undraw_personal_opinions_re_qw29.xml" value="0.2203125" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/undraw_profile_pic_ic_5_t_1.xml" value="0.2203125" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/layout/fragment_first.xml" value="0.1" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/layout/content_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/layout/fragment_choice.xml" value="0.25" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/layout/fragment_first.xml" value="0.33" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/layout/fragment_intro.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/layout/fragment_second.xml" value="0.1" />
-        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/layout/item_hospital.xml" value="0.22" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/layout/item_hospital.xml" value="0.2" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/layout/layout_tool_bar.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/layout/second_onboarding_screen.xml" value="0.141875" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/menu/menu_main.xml" value="0.20416666666666666" />
       </map>
     </option>
