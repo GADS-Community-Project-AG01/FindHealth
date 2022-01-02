@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        installSplashScreen()
-
+        val splashscreen = installSplashScreen()
+        splashscreen.setKeepVisibleCondition { true }
 
 
         val preferences = getSharedPreferences("SETTINGS", MODE_PRIVATE)
@@ -36,21 +36,12 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
+
+        splashscreen.setKeepVisibleCondition { false }
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-
-//        setSupportActionBar(binding.toolbar)
-
-//        val navController = findNavController(R.id.nav_host_fragment_content_main)
-//        appBarConfiguration = AppBarConfiguration(navController.graph)
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-
         requestLocationPermissions()
-
-//        binding.fab.setOnClickListener { view ->
-//            locationViewModel.getLocation()
-//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -79,12 +70,6 @@ class MainActivity : AppCompatActivity() {
         // Forward results to EasyPermissions
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
-
-//    override fun onSupportNavigateUp(): Boolean {
-//        val navController = findNavController(R.id.nav_host_fragment_content_main)
-//        return navController.navigateUp(appBarConfiguration)
-//                || super.onSupportNavigateUp()
-//    }
 
     fun requestLocationPermissions () {
         val permissions = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
