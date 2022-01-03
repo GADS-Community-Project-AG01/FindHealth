@@ -4,11 +4,20 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="location_rationale">Location permission required to find nearby hospitals</string>
+    <string name="onboarding_screen1_title">Discover Healthcare Facilities Near You</string>
+    <string name="onboarding_screen1_subtitle">At the tap of a button</string>
+    <string name="onboarding_screen2_title">Get Access to Listed Qualified Professionals</string>
+    <string name="onboarding_screen2_subtitle">List as a Medical Professional</string>
+    <string name="onboarding_screen3_title">Be Part Of A Growing FindHealth Community</string>
+    <string name="onboarding_screen3_subtitle">Participate in Peer Reviews</string>
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="search">Search</string>
+    <string name="intro_get_started_button">GET STARTED</string>
+    <string name="intro_emergency_filled_button">EMERGENCY</string>
+    <string name="cardChoice1_text">"Search for Healthcare Facilities "</string>
+    <string name="location_label">your location :</string>
+    <string name="cardChoice2_text">Search for Listed Qualified Medical Professionals</string>
+    <string name="cardChoice3_text">Join FindHealth Community</string>
 </resources>

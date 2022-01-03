@@ -1,69 +1,66 @@
 package com.gadsag01.findhealth.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.gadsag01.findhealth.api.NearbyHospitalsSearchClient
-import com.gadsag01.findhealth.model.HospitalBasic
-import com.gadsag01.findhealth.model.HospitalFull
+import com.gadsag01.findhealth.data.HospitalPagingSource
+import com.gadsag01.findhealth.data.HospitalRepository
+import com.gadsag01.findhealth.model.Hospital
 import com.google.maps.model.LatLng
-import com.google.maps.model.PlacesSearchResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 
 @HiltViewModel
 class HospitalViewModel @Inject constructor(
-    private val nearbyHospitalsSearchClient: NearbyHospitalsSearchClient) : ViewModel()
-{
+    private val nearbyHospitalsSearchClient: NearbyHospitalsSearchClient,
+    private val hospitalRepository: HospitalRepository
+) : ViewModel() {
 
-    val liveDataAllHospitalBasicDetails : LiveData<List<HospitalBasic>>
-        get() = mutableLiveDataAllHospitalBasicDetails
+    val liveDataAllHospitalsNearby : LiveData<List<Hospital>>
+        get() = mutableLiveDataAllHospitalsNearby
 
-    private var mutableLiveDataAllHospitalBasicDetails = MutableLiveData<List<HospitalBasic>>()
+    private var mutableLiveDataAllHospitalsNearby = MutableLiveData<List<Hospital>>()
 
-    val liveDataALlHospitalFullDetails : LiveData<List<HospitalFull>>
-        get() = mutableLiveDataAllHospitalFullDetails
+    private var  selectedHospitalMutableLiveData = MutableLiveData<Hospital>()
 
-    private var mutableLiveDataAllHospitalFullDetails = MutableLiveData<List<HospitalFull>>()
+    val selectedHospitalLiveData: LiveData<Hospital>
+        get() = selectedHospitalMutableLiveData
 
-    fun getAllHospitalsFullDetails(location : LatLng) {
-        viewModelScope.launch(Dispatchers.IO) {
-            mutableLiveDataAllHospitalFullDetails.postValue(
-                nearbyHospitalsSearchClient.run(location)?.toHospitalFullDetails()
-                    ?: emptyList()
-            )
+    fun syncHospitalsNearbyFlowAsync(location : LatLng): Deferred<Flow<PagingData<Hospital>>> {
+        return viewModelScope.async(Dispatchers.IO) { Pager(
+            PagingConfig(20)
+        ) {
+            HospitalPagingSource(nearbyHospitalsSearchClient, location)
+        }.flow.cachedIn(viewModelScope)
         }
     }
 
-    fun getAllHospitalsBasicDetails(location : LatLng) {
-        Log.d("check value", location.toString())
-        viewModelScope.launch(Dispatchers.IO) {
-            mutableLiveDataAllHospitalBasicDetails.postValue(
-                nearbyHospitalsSearchClient.run(location)?.toHospitalBasicDetails()
-                    ?: emptyList()
-            )
-        }
+    fun syncHospitalstoDB(location: LatLng) {
+        hospitalRepository.syncHospitals(location)
+    }
+    fun setSelectedHospital(hospital: Hospital) {
+        selectedHospitalMutableLiveData.value = hospital
     }
 
-    fun PlacesSearchResponse.toHospitalBasicDetails() : List<HospitalBasic> {
-        return this.results.toList().map {
-            HospitalBasic(
-                it.placeId,
-                it.name,
-                it.formattedAddress ?: "address not found",
-                it.rating
-            )
+    val hospitalsDBFlow: Deferred<Flow<List<Hospital>>>
+        get() = viewModelScope.async(Dispatchers.IO) {
+            hospitalRepository.getHospitals()
         }
-    }
 
-    fun PlacesSearchResponse.toHospitalFullDetails() : List<HospitalFull> {
-        return this.results.toList().map { nearbyHospitalsSearchClient.returnHospitalFullDetails(it.placeId) }
-    }
+//    fun PlacesSearchResponse.toHospitalFullDetails() : List<HospitalFull> {
+//        return this.results.toList().map { nearbyHospitalsSearchClient.returnHospitalFullDetails(it.placeId) }
+//    }
 
 
 }

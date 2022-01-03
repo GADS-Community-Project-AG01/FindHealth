@@ -1,15 +1,13 @@
 package com.gadsag01.findhealth
 
 import android.Manifest
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.gadsag01.findhealth.databinding.ActivityMainBinding
 import com.gadsag01.findhealth.viewmodels.LocationViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,27 +16,32 @@ import pub.devrel.easypermissions.EasyPermissions
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
+//    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private val locationViewModel : LocationViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        val splashscreen = installSplashScreen()
+        splashscreen.setKeepVisibleCondition { true }
 
-        setSupportActionBar(binding.toolbar)
 
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        val preferences = getSharedPreferences("SETTINGS", MODE_PRIVATE)
+        when(preferences.getBoolean("should_onboard", true)) {
+            true -> {
+//                preferences.edit().putBoolean("should_onboard", false).apply()
 
-        requestLocationPermissions()
+                startActivity(Intent(this, OnboardingScreen::class.java))
 
-        binding.fab.setOnClickListener { view ->
-            locationViewModel.getLocation()
+            }
         }
+
+        splashscreen.setKeepVisibleCondition { false }
+        binding = ActivityMainBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
+        requestLocationPermissions()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -68,12 +71,6 @@ class MainActivity : AppCompatActivity() {
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
-    }
-
     fun requestLocationPermissions () {
         val permissions = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
 
@@ -82,4 +79,6 @@ class MainActivity : AppCompatActivity() {
                 234, *permissions)
         }
     }
+
 }
+

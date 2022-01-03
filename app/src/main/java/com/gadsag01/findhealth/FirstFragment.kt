@@ -9,14 +9,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.gadsag01.findhealth.adapters.HospitalAdapter
+import com.gadsag01.findhealth.adapters.HospitalListAdapter
 import com.gadsag01.findhealth.databinding.FragmentFirstBinding
 import com.gadsag01.findhealth.viewmodels.HospitalViewModel
 import com.gadsag01.findhealth.viewmodels.LocationViewModel
 import com.gadsag01.findhealth.viewmodels.toLatLng
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -24,9 +30,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FirstFragment : Fragment() {
 
-    private val hospitalBasicListAdapter = HospitalAdapter()
+//    @Inject lateinit var client: NearbyHospitalsSearchClient
+
+    @Inject lateinit var hospitalAdapter : HospitalAdapter
+    @Inject lateinit var hospitalListAdapter: HospitalListAdapter
     private val locationViewModel : LocationViewModel by activityViewModels()
-    private val hospitalViewModel: HospitalViewModel by viewModels()
+    private val hospitalViewModel: HospitalViewModel by activityViewModels()
     private val editableFactory = Editable.Factory()
     private var _binding: FragmentFirstBinding? = null
     private var permissionStatus = false
@@ -48,20 +57,40 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.hospitalBasicRecyclerView.adapter = hospitalBasicListAdapter
-        binding.hospitalBasicRecyclerView.layoutManager = LinearLayoutManager(context)
+//        binding.hospitalBasicRecyclerView.adapter = hospitalAdapter
+        binding.hospitalBasicRecyclerView.adapter = hospitalListAdapter
+        binding.hospitalBasicRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        LinearSnapHelper().attachToRecyclerView(binding.hospitalBasicRecyclerView)
+        hospitalListAdapter.setVM(hospitalViewModel)
 
-        locationViewModel.livedataLocation.observe(viewLifecycleOwner) {
-            Log.d("check value", it.toString())
-            hospitalViewModel.getAllHospitalsBasicDetails(it.toLatLng())
+        locationViewModel.livedataLocation.observe(viewLifecycleOwner) { location ->
+            Log.d("check value", location.toString())
+//            hospitalViewModel.getAllHospitalsNearby(it.toLatLng())
+//            viewLifecycleOwner.lifecycleScope.launch {
+//                hospitalViewModel.syncHospitalsNearbyFlowAsync(location.toLatLng()).await().collectLatest {
+//                    hospitalAdapter.submitData(it)
+//                }
+//
+//            }
+            hospitalViewModel.syncHospitalstoDB(location.toLatLng())
+            viewLifecycleOwner.lifecycleScope.launch {
+                hospitalViewModel.hospitalsDBFlow.await().asLiveData().observe(viewLifecycleOwner) {
+                    hospitalListAdapter.submitList(it)
+                }
+            }
+
+            binding.progressBar.visibility = View.GONE
+            binding.hospitalBasicRecyclerView.visibility = View.VISIBLE
         }
-        hospitalViewModel.liveDataAllHospitalBasicDetails.observe(viewLifecycleOwner) {
-            hospitalBasicListAdapter.submitList(it)
-        }
+//        hospitalViewModel.liveDataAllHospitalsNearby.observe(viewLifecycleOwner) {
+//            hospitalAdapter.submitList(it)
+//        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.hospitalBasicRecyclerView.visibility = View.GONE
+        binding.progressBar.visibility = View.VISIBLE
         _binding = null
     }
 

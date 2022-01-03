@@ -1,25 +1,19 @@
 package com.gadsag01.findhealth.model
 
-import com.google.maps.model.Geometry
-import com.google.maps.model.OpeningHours
-import java.net.URL
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-data class HospitalBasic(
-    val placeId: String,
+@Entity
+data class Hospital(
+    @PrimaryKey val placeId: String,
     val name: String,
     val formattedAddress: String?,
-    val rating: Float?,
-)
-
-data class HospitalFull(
-    val placedId: String,
-    val name: String,
-    val formattedAddress: String?,
-    val geometry: Geometry,
+    val geometry: String,
     val phoneNumber: String?,
-    val openingHours: OpeningHours?,
+    val openingHours: String?,
     val rating: Float?,
-    val userRatingsTotal: Int,
-    val googleUrl: URL,
-    val website: URL?
+    val userRatingsTotal: Int?,
+    val googleUrl: String?,
+    val website: String?,
+    val photoReferences: String?
     )
