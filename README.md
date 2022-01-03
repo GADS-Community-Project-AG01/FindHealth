@@ -10,6 +10,28 @@ times of emergency; as may result from a covid infection or otherwise.
 
 **HOW IT WORKS**
 
-At runtime the app asks for permission to use your location. when permission 
-is granted, pressing the FAB generates a list of nearby hospitals along with information 
-to aid in making an informed decision.
+At install the app asks for permission to use your location. App is  not functional if permission isnt granted.
+
+The app launches with a splashscreen:
+![apps splashscreen](/screenshots/screenshot6.jpeg)
+
+following which the onboarding screens are shown:
+![onboarding 1](/screenshots/screenshot9.jpeg)
+![onboarding 2](/screenshots/screenshot7.jpeg)
+![onboarding 3](/screenshots/screenshot8.jpeg)
+
+App screens
+![apps](/screenshots/screenshot(2).jpeg)
+![apps](/screenshots/screenshot(4).jpeg)
+![apps](/screenshots/screenshot(3).jpeg)
+
+The app currently populates data from the google places api
+
+**TECHNOLOGIES USED**
+
+- JetPack Navigation
+- Hilt for dependency Injection
+- Coil for image Loading
+- Kotlin Coroutines
+- WorkManager
+
