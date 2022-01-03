@@ -10,11 +10,11 @@ import androidx.fragment.app.activityViewModels
 import com.gadsag01.findhealth.databinding.FragmentSecondBinding
 import com.gadsag01.findhealth.viewmodels.HospitalViewModel
 import com.gadsag01.findhealth.viewmodels.LocationViewModel
-import com.gadsag01.findhealth.viewmodels.latLngAdapter
 import com.gadsag01.findhealth.viewmodels.toLatLng2
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
@@ -97,13 +97,15 @@ class SecondFragment : Fragment(), OnMapReadyCallback {
             hospitalViewModel.selectedHospitalLiveData.observe(viewLifecycleOwner) {
                 googleMap.addMarker(
                     MarkerOptions()
-                        .position(it.geometry.location.latLngAdapter())
+                        .position(it.geometry.toLatLng())
                         .title("Marker")
                 )
             }
         }
+    }
 
-
-
+    fun String.toLatLng() : LatLng {
+        val res = this.split(",")
+        return LatLng(res.first().toDouble(), res.last().toDouble())
     }
 }

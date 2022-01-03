@@ -3,7 +3,6 @@ package com.gadsag01.findhealth.di
 import android.content.Context
 import com.gadsag01.findhealth.adapters.HospitalAdapter
 import com.gadsag01.findhealth.api.NearbyHospitalsSearchClient
-import com.gadsag01.findhealth.data.HospitalRepository
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.maps.GeoApiContext
@@ -26,11 +25,6 @@ class LocationModule {
     @Provides
     fun provideNearbySearchService(context: GeoApiContext) : NearbyHospitalsSearchClient {
         return NearbyHospitalsSearchClient(context)
-    }
-
-    @Provides
-    fun provideHospitalRepository(client: NearbyHospitalsSearchClient) : HospitalRepository {
-        return HospitalRepository(client)
     }
 
     @Provides

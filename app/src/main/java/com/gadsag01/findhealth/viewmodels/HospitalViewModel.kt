@@ -37,7 +37,7 @@ class HospitalViewModel @Inject constructor(
     val selectedHospitalLiveData: LiveData<Hospital>
         get() = selectedHospitalMutableLiveData
 
-    fun syncHospitalsNearbyFlow(location : LatLng): Deferred<Flow<PagingData<Hospital>>> {
+    fun syncHospitalsNearbyFlowAsync(location : LatLng): Deferred<Flow<PagingData<Hospital>>> {
         return viewModelScope.async(Dispatchers.IO) { Pager(
             PagingConfig(20)
         ) {
@@ -46,9 +46,17 @@ class HospitalViewModel @Inject constructor(
         }
     }
 
+    fun syncHospitalstoDB(location: LatLng) {
+        hospitalRepository.syncHospitals(location)
+    }
     fun setSelectedHospital(hospital: Hospital) {
         selectedHospitalMutableLiveData.value = hospital
     }
+
+    val hospitalsDBFlow: Deferred<Flow<List<Hospital>>>
+        get() = viewModelScope.async(Dispatchers.IO) {
+            hospitalRepository.getHospitals()
+        }
 
 //    fun PlacesSearchResponse.toHospitalFullDetails() : List<HospitalFull> {
 //        return this.results.toList().map { nearbyHospitalsSearchClient.returnHospitalFullDetails(it.placeId) }

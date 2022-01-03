@@ -63,16 +63,14 @@ class NearbyHospitalsSearchClient (private val geoApiContext: GeoApiContext) {
             placeDetails.placeId,
             placeDetails.name,
             placeDetails.formattedAddress,
-            placeDetails.geometry,
+            placeDetails.geometry?.location.toString(),
             placeDetails.internationalPhoneNumber,
-            placeDetails.openingHours,
+            placeDetails.openingHours?.weekdayText.toString(),
             placeDetails.rating,
             placeDetails.userRatingsTotal,
-            placeDetails.url,
-            placeDetails.website,
-            photoReferences = placeDetails.photos?.toList()?.map {
-                it.photoReference
-            }
+            placeDetails.url?.toString(),
+            placeDetails.website?.toString(),
+            photoReferences = placeDetails.photos?.get(0)?.photoReference
         )
     }
 }
