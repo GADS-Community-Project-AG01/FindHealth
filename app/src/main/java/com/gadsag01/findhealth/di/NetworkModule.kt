@@ -10,13 +10,15 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
 class NetworkModule {
 
+    @Singleton
     @Provides
-    fun providesGeoApiContext(@ApplicationContext context: Context) : GeoApiContext {
+    fun providesGeoApiContext(@ApplicationContext context: Context): GeoApiContext {
         // retreive api key stored in local.properties
         val ai: ApplicationInfo = context.packageManager.getApplicationInfo(
             context.packageName,
@@ -25,10 +27,8 @@ class NetworkModule {
         val apiKey = ai.metaData["API_KEY"].toString()
         Log.d("api", apiKey)
 
-        val geoApicontext: GeoApiContext = GeoApiContext.Builder()
+        return GeoApiContext.Builder()
             .apiKey(apiKey)
             .build()
-
-        return geoApicontext
     }
 }

@@ -15,5 +15,6 @@ data class Hospital(
     val userRatingsTotal: Int?,
     val googleUrl: String?,
     val website: String?,
-    val photoReferences: String?
+    val photoReferences: String?,
+    var distance: String?
     )

@@ -42,6 +42,12 @@ android {
         targetSdkVersion 31
         minSdkVersion 21
         signingConfig signingConfigs.release
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {

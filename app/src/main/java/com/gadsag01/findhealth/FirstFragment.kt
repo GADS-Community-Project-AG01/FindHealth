@@ -65,26 +65,17 @@ class FirstFragment : Fragment() {
 
         locationViewModel.livedataLocation.observe(viewLifecycleOwner) { location ->
             Log.d("check value", location.toString())
-//            hospitalViewModel.getAllHospitalsNearby(it.toLatLng())
-//            viewLifecycleOwner.lifecycleScope.launch {
-//                hospitalViewModel.syncHospitalsNearbyFlowAsync(location.toLatLng()).await().collectLatest {
-//                    hospitalAdapter.submitData(it)
-//                }
-//
-//            }
             hospitalViewModel.syncHospitalstoDB(location.toLatLng())
             viewLifecycleOwner.lifecycleScope.launch {
                 hospitalViewModel.hospitalsDBFlow.await().asLiveData().observe(viewLifecycleOwner) {
                     hospitalListAdapter.submitList(it)
                 }
             }
+            hospitalViewModel.syncHospitalDistances(location.toLatLng())
 
             binding.progressBar.visibility = View.GONE
             binding.hospitalBasicRecyclerView.visibility = View.VISIBLE
         }
-//        hospitalViewModel.liveDataAllHospitalsNearby.observe(viewLifecycleOwner) {
-//            hospitalAdapter.submitList(it)
-//        }
     }
 
     override fun onDestroyView() {

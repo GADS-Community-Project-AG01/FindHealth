@@ -46,9 +46,10 @@ class HospitalViewModel @Inject constructor(
         }
     }
 
-    fun syncHospitalstoDB(location: LatLng) {
-        hospitalRepository.syncHospitals(location)
-    }
+    fun syncHospitalstoDB(location: LatLng) = hospitalRepository.syncHospitals(location)
+
+    fun syncHospitalDistances(location: LatLng) = hospitalRepository.syncDistances(location)
+
     fun setSelectedHospital(hospital: Hospital) {
         selectedHospitalMutableLiveData.value = hospital
     }
@@ -57,10 +58,5 @@ class HospitalViewModel @Inject constructor(
         get() = viewModelScope.async(Dispatchers.IO) {
             hospitalRepository.getHospitals()
         }
-
-//    fun PlacesSearchResponse.toHospitalFullDetails() : List<HospitalFull> {
-//        return this.results.toList().map { nearbyHospitalsSearchClient.returnHospitalFullDetails(it.placeId) }
-//    }
-
 
 }

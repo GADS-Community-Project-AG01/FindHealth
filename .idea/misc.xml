@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../.gradle/caches/transforms-3/2d3c97c017236ef743c042e848a34ffd/transformed/jetified-AppIntro-6.1.0/res/layout/appintro_intro_layout.xml" value="0.21875" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/ic_outline_place_24.xml" value="0.2203125" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/drawable/ic_refresh.xml" value="0.2203125" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
@@ -10,6 +11,24 @@
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/layout/fragment_second.xml" value="0.1" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/layout/item_hospital.xml" value="0.22" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/FindHealth/app/src/main/res/menu/menu_main.xml" value="0.20416666666666666" />
+        <entry key="app/src/main/res/drawable/graygradient_background.xml" value="0.15659722222222222" />
+        <entry key="app/src/main/res/drawable/green_gradient_background.xml" value="0.23489583333333333" />
+        <entry key="app/src/main/res/drawable/light_green_gradient_background.xml" value="0.15659722222222222" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.14548611111111112" />
+        <entry key="app/src/main/res/layout/appintro_intro_layout_test.xml" value="0.21875" />
+        <entry key="app/src/main/res/layout/bottom_sheet_map.xml" value="0.32272727272727275" />
+        <entry key="app/src/main/res/layout/content_main.xml" value="0.19444444444444445" />
+        <entry key="app/src/main/res/layout/first_onboarding_screen.xml" value="0.21875" />
+        <entry key="app/src/main/res/layout/fragment_choice.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.19444444444444445" />
+        <entry key="app/src/main/res/layout/fragment_intro.xml" value="0.14" />
+        <entry key="app/src/main/res/layout/fragment_onboarding.xml" value="0.21875" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/hospital_main.xml" value="0.19444444444444445" />
+        <entry key="app/src/main/res/layout/item_hospital.xml" value="0.215625" />
+        <entry key="app/src/main/res/layout/layout_tool_bar.xml" value="0.1875" />
+        <entry key="app/src/main/res/layout/second_onboarding_screen.xml" value="0.21875" />
+        <entry key="app/src/main/res/layout/third_onboarding_screen.xml" value="0.21875" />
       </map>
     </option>
   </component>

@@ -34,11 +34,18 @@ class NearbyHospitalsSearchClient (private val geoApiContext: GeoApiContext) {
         //todo if coil can load bytearray data, create an extension function on ImageView that loads the images
     }
     fun pagedRequest(location: LatLng, nextPageToken: String? = "Start") : PlacesSearchResponse {
-        return if (nextPageToken == "Start") {
-            run(location)
+        var response = PlacesSearchResponse()
+        if (nextPageToken == "Start") {
+            response = run(location)
         } else {
-            NearbySearchRequest(geoApiContext).pageToken(nextPageToken).await()
+            try {
+                response = NearbySearchRequest(geoApiContext).pageToken(nextPageToken).await()
+            } catch (e: Exception) {
+                Log.d("nextpageerror", e.toString())
+            }
         }
+        
+        return response
     }
 
     fun run(location: LatLng, distance: Int = 5000) : PlacesSearchResponse {
@@ -70,7 +77,8 @@ class NearbyHospitalsSearchClient (private val geoApiContext: GeoApiContext) {
             placeDetails.userRatingsTotal,
             placeDetails.url?.toString(),
             placeDetails.website?.toString(),
-            photoReferences = placeDetails.photos?.get(0)?.photoReference
+            photoReferences = placeDetails.photos?.get(0)?.photoReference,
+            distance = null
         )
     }
 }

@@ -60,6 +60,9 @@ class HospitalAdapter @Inject constructor(private val client: NearbyHospitalsSea
                         cardViewHospitalImage.load(client.getPhoto(it))
                     }
                 }
+                hospital.distance?.let {
+                    cardViewDistance.text = it
+                }
 
             }
         }
